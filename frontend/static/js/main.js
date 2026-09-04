@@ -1,10 +1,8 @@
 /* ==========================================
-   SHOW SELECTED SECTION
+SHOW SECTION
 ========================================== */
 
 function showSection(sectionId) {
-
-    // Hide all interactive sections
 
     document
         .querySelectorAll(".interactive-section")
@@ -15,13 +13,9 @@ function showSection(sectionId) {
         });
 
 
-    // Find selected section
-
     const selectedSection =
         document.getElementById(sectionId);
 
-
-    // Safety check
 
     if (!selectedSection) {
 
@@ -35,12 +29,10 @@ function showSection(sectionId) {
     }
 
 
-    // Show selected section
+    selectedSection.classList.remove(
+        "hidden"
+    );
 
-    selectedSection.classList.remove("hidden");
-
-
-    // Smooth scroll
 
     setTimeout(() => {
 
@@ -48,7 +40,7 @@ function showSection(sectionId) {
 
             behavior: "smooth",
 
-            block: "center"
+            block: "start"
 
         });
 
@@ -57,34 +49,27 @@ function showSection(sectionId) {
 }
 
 
-
 /* ==========================================
-   ANALYZE SKILLS
+SKILL ANALYSIS
 ========================================== */
 
 async function analyzeSkills() {
 
-    const skillsInput =
-        document
-            .getElementById("skills-input")
-            .value;
+    const skillsInput = document
+        .getElementById("skills-input")
+        .value;
 
 
-    const resultBox =
-        document
-            .getElementById("skills-result");
+    const resultBox = document
+        .getElementById("skills-result");
 
 
     if (!skillsInput.trim()) {
 
         resultBox.innerHTML = `
-
             <p class="error-message">
-
                 Please enter at least one skill.
-
             </p>
-
         `;
 
         return;
@@ -93,33 +78,24 @@ async function analyzeSkills() {
 
 
     resultBox.innerHTML = `
-
-        <div class="result-item">
-
-            <strong>
-                Analyzing your skills...
-            </strong>
-
-            <p>
-                Please wait while SkillSync evaluates your skills.
-            </p>
-
-        </div>
-
+        <p>Analyzing your skills...</p>
     `;
 
 
     try {
 
         const response = await fetch(
+
             "/analyze-skills",
+
             {
 
                 method: "POST",
 
                 headers: {
 
-                    "Content-Type": "application/json"
+                    "Content-Type":
+                        "application/json"
 
                 },
 
@@ -130,6 +106,7 @@ async function analyzeSkills() {
                 })
 
             }
+
         );
 
 
@@ -142,18 +119,18 @@ async function analyzeSkills() {
             resultBox.innerHTML = `
 
                 <h3>
-                    Your Skill Analysis
+                    Your Skill Intelligence Report
                 </h3>
 
 
                 <div class="result-item">
 
                     <strong>
-                        Your Skills
+                        🎯 Best Matching Career Role
                     </strong>
 
                     <p>
-                        ${data.user_skills.join(", ")}
+                        ${data.best_matching_role}
                     </p>
 
                 </div>
@@ -162,11 +139,11 @@ async function analyzeSkills() {
                 <div class="result-item">
 
                     <strong>
-                        Recommended Skills
+                        📊 Match Score
                     </strong>
 
                     <p>
-                        ${data.recommended_skills.join(", ")}
+                        ${data.job_match_score}%
                     </p>
 
                 </div>
@@ -175,11 +152,58 @@ async function analyzeSkills() {
                 <div class="result-item">
 
                     <strong>
-                        Missing Skills
+                        ⭐ Competency Level
                     </strong>
 
                     <p>
-                        ${data.missing_skills.join(", ")}
+                        ${data.competency_level}
+                    </p>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        💪 Your Strengths
+                    </strong>
+
+                    <p>
+                        ${
+                            data.strengths.length
+                            ? data.strengths.join(", ")
+                            : "Keep building your core skills."
+                        }
+                    </p>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        🚀 Recommended Skills
+                    </strong>
+
+                    <p>
+                        ${
+                            data.recommended_skills.join(", ")
+                        }
+                    </p>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        📚 Skill Gaps
+                    </strong>
+
+                    <p>
+                        ${
+                            data.missing_skills.join(", ")
+                        }
                     </p>
 
                 </div>
@@ -194,7 +218,7 @@ async function analyzeSkills() {
 
                 <p class="error-message">
 
-                    ${data.message || "Analysis failed."}
+                    ${(data.error && data.error.message) || data.message || "Analysis failed."}
 
                 </p>
 
@@ -208,12 +232,12 @@ async function analyzeSkills() {
 
         console.error(error);
 
-
         resultBox.innerHTML = `
 
             <p class="error-message">
 
-                Something went wrong while analyzing skills.
+                Something went wrong while
+                analyzing your skills.
 
             </p>
 
@@ -224,39 +248,36 @@ async function analyzeSkills() {
 }
 
 
-
 /* ==========================================
-   RESUME ANALYZER
+RESUME ANALYSIS
 ========================================== */
 
-function analyzeResume() {
+async function analyzeResume() {
 
     const fileInput =
-        document
-            .getElementById("resume-file");
+        document.getElementById(
+            "resume-file"
+        );
 
 
     const jobDescription =
-        document
-            .getElementById("job-description")
-            .value;
+        document.getElementById(
+            "job-description"
+        ).value;
 
 
     const resultBox =
-        document
-            .getElementById("resume-result");
+        document.getElementById(
+            "resume-result"
+        );
 
 
     if (!fileInput.files.length) {
 
         resultBox.innerHTML = `
-
             <p class="error-message">
-
                 Please upload your resume.
-
             </p>
-
         `;
 
         return;
@@ -267,13 +288,9 @@ function analyzeResume() {
     if (!jobDescription.trim()) {
 
         resultBox.innerHTML = `
-
             <p class="error-message">
-
                 Please enter a job description.
-
             </p>
-
         `;
 
         return;
@@ -283,83 +300,218 @@ function analyzeResume() {
 
     resultBox.innerHTML = `
 
-        <h3>
-            Resume Analysis
-        </h3>
-
-
-        <div class="result-item">
-
-            <strong>
-                Uploaded Resume
-            </strong>
-
-            <p>
-                ${fileInput.files[0].name}
-            </p>
-
-        </div>
-
-
-        <div class="result-item">
-
-            <strong>
-                Job Description
-            </strong>
-
-            <p>
-                Job description successfully received.
-            </p>
-
-        </div>
-
-
-        <div class="result-item">
-
-            <strong>
-                Next Step
-            </strong>
-
-            <p>
-                Resume analysis is ready to be connected
-                with the SkillSync backend.
-            </p>
-
-        </div>
+        <p>
+            Analyzing your resume...
+        </p>
 
     `;
 
-}
+
+    const formData =
+        new FormData();
 
 
+    formData.append(
 
-/* ==========================================
-   LEARNING PATH
-========================================== */
+        "resume",
 
-function showLearningPath() {
+        fileInput.files[0]
 
-    const skill =
-        document
-            .getElementById("learning-skill")
-            .value;
+    );
 
 
-    const resultBox =
-        document
-            .getElementById("learning-result");
+    formData.append(
+
+        "job_description",
+
+        jobDescription
+
+    );
 
 
-    if (!skill) {
+    try {
+
+        const response = await fetch(
+
+            "/analyze-resume",
+
+            {
+
+                method: "POST",
+
+                body: formData
+
+            }
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            resultBox.innerHTML = `
+
+                <h3>
+                    Resume Intelligence Report
+                </h3>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        📊 Job Match Score
+                    </strong>
+
+                    <p>
+                        ${data.match_score}%
+                    </p>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        💪 Skills Found in Resume
+                    </strong>
+
+                    <p>
+                        ${
+                            data.resume_skills.join(", ")
+                            || "No recognized skills found."
+                        }
+                    </p>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        🎯 Job Required Skills
+                    </strong>
+
+                    <p>
+                        ${
+                            data.job_skills.join(", ")
+                            || "No recognized skills found."
+                        }
+                    </p>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <strong>
+                        🚀 Missing Skills
+                    </strong>
+
+                    <p>
+                        ${
+                            data.missing_skills.join(", ")
+                            || "Great! No major gaps detected."
+                        }
+                    </p>
+
+                </div>
+
+
+                ${data.strengths && data.strengths.length ? `
+                <div class="result-item">
+
+                    <strong>
+                        ⭐ Key Strengths
+                    </strong>
+
+                    <p>
+                        ${Array.isArray(data.strengths) ? data.strengths.join(", ") : data.strengths}
+                    </p>
+
+                </div>
+                ` : ""}
+
+
+                ${((data.recommendations && data.recommendations.length) || (data.improvement_recommendations && data.improvement_recommendations.length)) ? `
+                <div class="result-item">
+
+                    <strong>
+                        💡 Improvement Recommendations
+                    </strong>
+
+                    <p>
+                        ${Array.isArray(data.recommendations || data.improvement_recommendations) ? (data.recommendations || data.improvement_recommendations).join("<br>") : (data.recommendations || data.improvement_recommendations)}
+                    </p>
+
+                </div>
+                ` : ""}
+
+            `;
+
+        }
+
+        else {
+
+            resultBox.innerHTML = `
+
+                <p class="error-message">
+
+                    ${(data.error && data.error.message) || data.message || "Resume analysis failed."}
+
+                </p>
+
+            `;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
 
         resultBox.innerHTML = `
 
             <p class="error-message">
 
-                Please select a skill.
+                Resume analysis failed.
 
             </p>
 
+        `;
+
+    }
+
+}
+
+
+/* ==========================================
+LEARNING PATH
+========================================== */
+
+function showLearningPath() {
+
+    const skill =
+        document.getElementById(
+            "learning-skill"
+        ).value;
+
+
+    const resultBox =
+        document.getElementById(
+            "learning-result"
+        );
+
+
+    if (!skill) {
+
+        resultBox.innerHTML = `
+            <p class="error-message">
+                Please select a skill.
+            </p>
         `;
 
         return;
@@ -370,80 +522,66 @@ function showLearningPath() {
     const learningPaths = {
 
         "Python": [
-
-            "Python Basics",
+            "Python Fundamentals",
             "Functions and OOP",
             "Data Structures",
             "File Handling",
             "Projects",
             "Assessment & Certificate"
-
         ],
 
         "Java": [
-
             "Java Fundamentals",
-            "Object-Oriented Programming",
+            "OOP",
             "Collections",
             "Exception Handling",
             "Projects",
             "Assessment & Certificate"
-
         ],
 
         "C++": [
-
             "C++ Fundamentals",
             "Pointers",
-            "Object-Oriented Programming",
+            "OOP",
             "STL",
             "Data Structures & Algorithms",
             "Assessment & Certificate"
-
         ],
 
         "JavaScript": [
-
             "JavaScript Basics",
             "DOM Manipulation",
             "ES6",
             "Async JavaScript",
             "Projects",
-            "Assessment & Certificate"
-
+            "Assessment"
         ],
 
         "Data Structures": [
-
             "Arrays",
             "Linked Lists",
             "Stacks and Queues",
             "Trees",
             "Graphs",
             "Practice Problems"
-
         ],
 
         "Machine Learning": [
-
             "Python for ML",
             "NumPy and Pandas",
             "Data Visualization",
             "Supervised Learning",
             "Model Evaluation",
             "Projects"
-
         ],
 
         "Web Development": [
-
             "HTML",
             "CSS",
             "JavaScript",
             "Backend Development",
             "Databases",
             "Full Stack Project"
-
         ]
 
     };
@@ -486,9 +624,7 @@ function showLearningPath() {
 
 
     html += `
-
         </div>
-
     `;
 
 

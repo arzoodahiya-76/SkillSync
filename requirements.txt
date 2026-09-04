@@ -3,3 +3,8 @@ pandas
 numpy
 scikit-learn
 matplotlib
+openai
+google-genai
+python-dotenv
+pypdf
+python-docx
