@@ -143,8 +143,54 @@ class AIService:
             "competency_expectations": raw_result.get("competency_expectations", []),
             "responsibilities": responsibilities,
         }
+        
+        
+        def generate_text(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.7,
+    ) -> str:
+            """
+        Generates natural-language text using the configured AI provider.
+        """
+        if not prompt or not prompt.strip():
+            raise ValueError("Prompt must not be empty.")
 
+        return self.provider.generate_text(
+            prompt=prompt,
+            system_instruction=system_instruction,
+            temperature=temperature,
+        )
+        
+        def generate_follow_up_question(
+        self,
+        role: str,
+        previous_question: str,
+        response_text: str,
+        evaluation: Dict[str, Any],
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+            """
+        Generates an adaptive follow-up interview question through
+        the configured AI provider.
+        """
+        if not role or not role.strip():
+            raise ValueError("Role must not be empty.")
 
+        if not previous_question or not previous_question.strip():
+            raise ValueError("Previous question must not be empty.")
+
+        if not response_text or not response_text.strip():
+            raise ValueError("Response text must not be empty.")
+
+        return self.provider.generate_follow_up_question(
+            role=role,
+            previous_question=previous_question,
+            response_text=response_text,
+            evaluation=evaluation,
+            context=context,
+        )
 # Global singleton instance helper
 _ai_service_instance: Optional[AIService] = None
 

@@ -198,6 +198,80 @@ Return ONLY valid JSON:
 }}
 """
         return self._generate_json(prompt)
+    
+    def generate_follow_up_question(
+        self,
+        role: str,
+        previous_question: str,
+        response_text: str,
+        evaluation: Dict[str, Any],
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Generates an adaptive follow-up interview question based on
+        the candidate's previous answer and evaluation.
+        """
+
+        prompt = f"""
+You are conducting an adaptive AI interview for SkillSync.
+
+Role:
+{role}
+
+Previous Interview Question:
+{previous_question}
+
+Candidate's Verbal Response:
+{response_text}
+
+Evaluation of Previous Response:
+{json.dumps(evaluation)}
+
+Additional Context:
+{json.dumps(context or {})}
+
+Your task is to generate ONE realistic follow-up interview question.
+
+The question should adapt to the candidate's previous answer.
+
+Rules:
+1. If the answer was strong, increase depth or difficulty.
+2. If the answer was partially correct, ask a clarifying or deeper question.
+3. If the answer was weak, ask a simpler foundational question that tests the same competency.
+4. Do not repeat the previous question.
+5. Keep the question suitable for a spoken interview.
+6. Do not ask multiple questions at once.
+7. Focus on technical reasoning and demonstrated understanding.
+8. Do not make unsupported assumptions about the candidate.
+
+Return ONLY valid JSON using this exact schema:
+
+{{
+    "skill": "Target Skill",
+    "question": "One clear interview question",
+    "difficulty": "Beginner|Intermediate|Advanced",
+    "reason": "Brief explanation of why this question was selected",
+    "evaluation_criteria": [
+        "Criterion 1",
+        "Criterion 2",
+        "Criterion 3"
+    ]
+}}
+"""
+
+        result = self._generate_json(prompt)
+
+        return {
+            "skill": str(result.get("skill", "General Technical Skills")),
+            "question": str(result.get("question", "")),
+            "difficulty": str(result.get("difficulty", "Intermediate")),
+            "reason": str(result.get("reason", "")),
+            "evaluation_criteria": [
+                str(item)
+                for item in result.get("evaluation_criteria", [])
+                if isinstance(item, str)
+            ],
+        }
 
     def analyze_project(self, project_description: str, repo_url: Optional[str] = None, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         prompt = f"""

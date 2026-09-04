@@ -83,6 +83,22 @@ class AIProvider(ABC):
         Returns structured JSON evaluation dict.
         """
         pass
+    
+    @abstractmethod
+    def generate_follow_up_question(
+        self,
+        role: str,
+        previous_question: str,
+        response_text: str,
+        evaluation: Dict[str, Any],
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Generates an adaptive follow-up interview question based on
+        the candidate's previous answer and evaluation.
+        Returns a structured question dict.
+        """
+        pass
 
     @abstractmethod
     def analyze_project(self, project_description: str, repo_url: Optional[str] = None, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:

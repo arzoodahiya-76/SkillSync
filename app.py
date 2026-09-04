@@ -129,7 +129,7 @@ def analyze_resume_route():
     """
     Resume & Job Description Analysis Route.
     Flow:
-      Upload -> Text Extraction -> AIService -> CompetencyEngine (evidence scoring)
+    Upload -> Text Extraction -> AIService -> CompetencyEngine (evidence scoring)
     """
     try:
         resume_file = request.files.get("resume")
@@ -283,6 +283,282 @@ def courses_route():
         }), 500
 
 
+# =====================================
+# AI MOCK INTERVIEW API
+# =====================================
+
+@app.route("/api/mock-interview/start", methods=["POST"])
+def start_mock_interview():
+    """
+    Starts an AI mock interview.
+
+    Generates the initial interview questions based on:
+    - Target role
+    - Candidate skills
+    """
+
+    try:
+        data = request.get_json(silent=True) or {}
+
+        role = str(data.get("role", "Software Engineer")).strip()
+        skills = data.get("skills", [])
+
+        if not isinstance(skills, list):
+            skills = []
+
+        skills = [
+            str(skill).strip()
+            for skill in skills
+            if str(skill).strip()
+        ]
+
+        if not skills:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "MISSING_SKILLS",
+                    "message": "At least one skill is required to start the interview."
+                },
+                "message": "Please provide at least one skill."
+            }), 400
+
+        ai_service = get_ai_service()
+
+        # Verify that the configured AI provider is available.
+        available, reason = ai_service.provider.is_available()
+
+        if not available:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "AI_PROVIDER_UNAVAILABLE",
+                    "message": reason
+                },
+                "message": f"AI interview unavailable: {reason}"
+            }), 503
+
+        questions = ai_service.provider.generate_interview_questions(
+            role=role,
+            skills=skills,
+            context={
+                "interview_type": "technical",
+                "adaptive": True
+            }
+        )
+
+        if not questions:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "NO_INTERVIEW_QUESTIONS",
+                    "message": "The AI provider did not generate interview questions."
+                },
+                "message": "Could not generate interview questions."
+            }), 502
+
+        return jsonify({
+            "success": True,
+            "role": role,
+            "skills": skills,
+            "total_questions": len(questions),
+            "questions": questions
+        }), 200
+
+    except AIProviderError as error:
+        return jsonify({
+            "success": False,
+            "error": error.to_dict(),
+            "message": f"Interview generation failed: {error.message}"
+        }), 502
+
+    except Exception as error:
+        print("MOCK INTERVIEW START ERROR:", error)
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "code": "INTERNAL_SERVER_ERROR",
+                "message": "An unexpected error occurred while starting the interview."
+            },
+            "message": "Something went wrong while starting the interview."
+        }), 500
+
+
+@app.route("/api/mock-interview/evaluate", methods=["POST"])
+def evaluate_mock_interview_response():
+    """
+    Evaluates a student's spoken interview response.
+
+    Speech-to-text happens in the browser.
+    The resulting transcript is sent here for Gemini evaluation.
+    """
+
+    try:
+        data = request.get_json(silent=True) or {}
+
+        question = str(data.get("question", "")).strip()
+        response_text = str(data.get("response", "")).strip()
+
+        if not question:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "MISSING_QUESTION",
+                    "message": "Interview question is required."
+                },
+                "message": "Interview question is missing."
+            }), 400
+
+        if not response_text:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "EMPTY_RESPONSE",
+                    "message": "Candidate response cannot be empty."
+                },
+                "message": "Please provide an answer."
+            }), 400
+
+        ai_service = get_ai_service()
+
+        available, reason = ai_service.provider.is_available()
+
+        if not available:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "AI_PROVIDER_UNAVAILABLE",
+                    "message": reason
+                },
+                "message": f"AI interview unavailable: {reason}"
+            }), 503
+
+        evaluation = ai_service.provider.evaluate_interview_response(
+            question=question,
+            response_text=response_text,
+            context={
+                "interview_type": "technical",
+                "response_mode": "voice_transcript"
+            }
+        )
+
+        return jsonify({
+            "success": True,
+            "evaluation": evaluation
+        }), 200
+
+    except AIProviderError as error:
+        return jsonify({
+            "success": False,
+            "error": error.to_dict(),
+            "message": f"Interview evaluation failed: {error.message}"
+        }), 502
+
+    except Exception as error:
+        print("MOCK INTERVIEW EVALUATION ERROR:", error)
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "code": "INTERNAL_SERVER_ERROR",
+                "message": "An unexpected error occurred while evaluating the interview response."
+            },
+            "message": "Something went wrong while evaluating your answer."
+        }), 500
+
+
+@app.route("/api/mock-interview/follow-up", methods=["POST"])
+def generate_mock_interview_follow_up():
+    """
+    Generates the next adaptive interview question.
+
+    Gemini uses:
+    - Previous question
+    - Candidate's answer
+    - Previous evaluation
+    - Target role
+    """
+
+    try:
+        data = request.get_json(silent=True) or {}
+
+        role = str(data.get("role", "Software Engineer")).strip()
+        previous_question = str(data.get("previous_question", "")).strip()
+        response_text = str(data.get("response", "")).strip()
+        evaluation = data.get("evaluation", {})
+
+        if not previous_question:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "MISSING_PREVIOUS_QUESTION",
+                    "message": "Previous interview question is required."
+                },
+                "message": "Previous question is missing."
+            }), 400
+
+        if not response_text:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "EMPTY_RESPONSE",
+                    "message": "Candidate response cannot be empty."
+                },
+                "message": "Candidate response is missing."
+            }), 400
+
+        if not isinstance(evaluation, dict):
+            evaluation = {}
+
+        ai_service = get_ai_service()
+
+        available, reason = ai_service.provider.is_available()
+
+        if not available:
+            return jsonify({
+                "success": False,
+                "error": {
+                    "code": "AI_PROVIDER_UNAVAILABLE",
+                    "message": reason
+                },
+                "message": f"AI interview unavailable: {reason}"
+            }), 503
+
+        next_question = ai_service.generate_follow_up_question(
+            role=role,
+            previous_question=previous_question,
+            response_text=response_text,
+            evaluation=evaluation,
+            context={
+                "interview_type": "technical",
+                "adaptive": True,
+                "response_mode": "voice_transcript"
+            }
+        )
+
+        return jsonify({
+            "success": True,
+            "question": next_question
+        }), 200
+
+    except AIProviderError as error:
+        return jsonify({
+            "success": False,
+            "error": error.to_dict(),
+            "message": f"Follow-up generation failed: {error.message}"
+        }), 502
+
+    except Exception as error:
+        print("MOCK INTERVIEW FOLLOW-UP ERROR:", error)
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "code": "INTERNAL_SERVER_ERROR",
+                "message": "An unexpected error occurred while generating the next question."
+            },
+            "message": "Something went wrong while generating the next question."
+        }), 500
 # =====================================
 # RUN APPLICATION
 # =====================================

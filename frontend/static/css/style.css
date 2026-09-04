@@ -241,7 +241,7 @@ OPTIONS SECTION
 
 
 /* ========================================
-   OPTION CARD
+OPTION CARD
 ======================================== */
 
 .option-card {
@@ -1006,6 +1006,531 @@ MOBILE
     .section-heading h2 {
 
         font-size: 28px;
+    }
+
+}
+/* ========================================
+AI VOICE MOCK INTERVIEW
+======================================== */
+
+#interview-section {
+    background: #111C1B;
+    border: 1px solid #243431;
+
+    color: #F3EEE5;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Interview heading */
+
+#interview-section h2 {
+    color: #F3EEE5;
+}
+
+
+#interview-section > p {
+    color: #C5CECA;
+
+    margin-bottom: 35px;
+}
+
+
+/* ========================================
+INTERVIEW SETUP
+======================================== */
+
+#interview-setup {
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+
+#interview-setup .form-group {
+    margin-bottom: 22px;
+}
+
+
+#interview-setup label {
+    color: #F3EEE5;
+}
+
+
+/* Interview inputs */
+
+#interview-setup input[type="text"] {
+
+    width: 100%;
+
+    padding: 15px 17px;
+
+    border-radius: 10px;
+
+    border: 1px solid #243431;
+
+    background: #0E1716;
+
+    color: #F3EEE5;
+
+    font-size: 15px;
+
+    transition: 0.25s;
+}
+
+
+#interview-setup input[type="text"]::placeholder {
+
+    color: #8F9D99;
+}
+
+
+#interview-setup input[type="text"]:focus {
+
+    outline: none;
+
+    border-color: #149A8A;
+
+    box-shadow:
+        0 0 0 3px rgba(20, 154, 138, 0.12);
+}
+
+
+/* ========================================
+INTERVIEW ACTIVE AREA
+======================================== */
+
+#interview-active {
+
+    max-width: 800px;
+
+    margin: 0 auto;
+}
+
+
+/* ========================================
+INTERVIEW STATUS
+======================================== */
+
+.interview-status {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+    padding: 12px 16px;
+
+    background: #0E1716;
+
+    border: 1px solid #243431;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+
+#interview-status-indicator {
+
+    color: #5FAF8F;
+
+    font-weight: 600;
+}
+
+
+#interview-question-count {
+
+    color: #C5CECA;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+AI INTERVIEWER CARD
+======================================== */
+
+.interviewer-card {
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    background: #172523;
+
+    border: 1px solid #243431;
+
+    border-radius: 18px;
+
+    text-align: center;
+}
+
+
+.interviewer-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #0F766E;
+
+    font-size: 32px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 118, 110, 0.25);
+}
+
+
+.interviewer-card h3 {
+
+    color: #F3EEE5;
+
+    font-size: 20px;
+
+    margin-bottom: 15px;
+}
+
+
+#interview-question {
+
+    color: #C5CECA;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    max-width: 650px;
+
+    margin: auto;
+}
+
+
+/* ========================================
+VOICE CONTROLS
+======================================== */
+
+.voice-controls {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 25px 0;
+}
+
+
+.voice-controls .action-btn {
+
+    min-width: 180px;
+}
+
+
+/* Speaking button */
+
+#start-speaking-btn {
+
+    background: #0F766E;
+}
+
+
+#start-speaking-btn:hover {
+
+    background: #149A8A;
+
+    box-shadow:
+        0 10px 25px rgba(20, 154, 138, 0.22);
+}
+
+
+/* Stop button */
+
+#stop-speaking-btn {
+
+    background: #C46A3A;
+}
+
+
+#stop-speaking-btn:hover {
+
+    background: #D99A5B;
+
+    box-shadow:
+        0 10px 25px rgba(196, 106, 58, 0.22);
+}
+
+
+/* Disabled buttons */
+
+.action-btn:disabled,
+.option-btn:disabled {
+
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* ========================================
+TRANSCRIPT
+======================================== */
+
+.transcript-card {
+
+    margin-top: 25px;
+
+    padding: 22px;
+
+    background: #0E1716;
+
+    border: 1px solid #243431;
+
+    border-radius: 14px;
+
+    text-align: left;
+}
+
+
+.transcript-card h3 {
+
+    color: #F3EEE5;
+
+    font-size: 17px;
+
+    margin-bottom: 10px;
+}
+
+
+.transcript {
+
+    min-height: 55px;
+
+    color: #C5CECA;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+}
+
+
+#live-transcript:not(:empty) {
+
+    color: #F3EEE5;
+}
+
+
+/* ========================================
+SUBMIT ANSWER
+======================================== */
+
+#submit-answer-btn {
+
+    display: block;
+
+    margin: 25px auto;
+
+    min-width: 210px;
+
+    background: #C46A3A;
+}
+
+
+#submit-answer-btn:hover {
+
+    background: #D99A5B;
+
+    box-shadow:
+        0 10px 25px rgba(196, 106, 58, 0.22);
+}
+
+
+/* ========================================
+AI EVALUATION
+======================================== */
+
+#interview-evaluation {
+
+    margin-top: 30px;
+
+    padding-top: 5px;
+}
+
+
+#interview-evaluation h3 {
+
+    color: #5FAF8F;
+
+    margin-bottom: 20px;
+}
+
+
+/* ========================================
+INTERVIEW RESULT ITEMS
+======================================== */
+
+#interview-section .result-item {
+
+    background: #172523;
+
+    border: 1px solid #243431;
+
+    border-left: 5px solid #0F766E;
+
+    color: #F3EEE5;
+}
+
+
+#interview-section .result-item strong {
+
+    color: #F3EEE5;
+}
+
+
+#interview-section .result-item p {
+
+    color: #C5CECA;
+}
+
+
+/* ========================================
+END INTERVIEW
+======================================== */
+
+#end-interview-btn {
+
+    margin-top: 25px;
+
+    background: transparent;
+
+    border: 1px solid #C46A3A;
+
+    color: #D99A5B;
+}
+
+
+#end-interview-btn:hover {
+
+    background: #C46A3A;
+
+    color: #F3EEE5;
+}
+
+
+/* ========================================
+INTERVIEW COMPLETE
+======================================== */
+
+#interview-complete {
+
+    max-width: 750px;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+
+#interview-complete h2 {
+
+    color: #5FAF8F;
+
+    margin-bottom: 25px;
+}
+
+
+#final-interview-result {
+
+    text-align: left;
+
+    margin-bottom: 25px;
+}
+
+
+/* ========================================
+MOBILE INTERVIEW
+======================================== */
+
+@media (max-width: 700px) {
+
+    #interview-section {
+
+        width: 92%;
+
+        padding: 30px 20px;
+
+    }
+
+
+    .interview-status {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .interviewer-card {
+
+        padding: 25px 18px;
+
+    }
+
+
+    #interview-question {
+
+        font-size: 16px;
+
+    }
+
+
+    .voice-controls {
+
+        flex-direction: column;
+
+        width: 100%;
+
+    }
+
+
+    .voice-controls .action-btn {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+
+    #submit-answer-btn {
+
+        width: 100%;
+
     }
 
 }
