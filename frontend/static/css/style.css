@@ -1,5 +1,5 @@
 /* ========================================
-   GLOBAL STYLING
+GLOBAL
 ======================================== */
 
 * {
@@ -9,10 +9,18 @@
 }
 
 
+html {
+    scroll-behavior: smooth;
+}
+
+
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f6f8fc;
+
+    background: #f6f8fc;
+
     color: #1f2937;
+
     line-height: 1.6;
 }
 
@@ -22,101 +30,208 @@ HEADER
 ======================================== */
 
 header {
+
     width: 100%;
-    padding: 20px 8%;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+.header-container {
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 18px 25px;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-
-    background-color: #ffffff;
-
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 
 .logo {
-    font-size: 28px;
-    font-weight: 700;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #111827;
+
+    letter-spacing: -1px;
+}
+
+
+.logo span {
+
     color: #2563eb;
 }
 
 
 .tagline {
+
     color: #6b7280;
+
     font-size: 15px;
 }
 
 
 /* ========================================
-   HERO SECTION
+HERO
 ======================================== */
 
 .hero {
+
+    padding: 100px 20px 80px;
+
     text-align: center;
-    padding: 85px 20px 55px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #eff6ff 0%,
+            #f6f8fc 100%
+        );
+}
+
+
+.hero-content {
+
+    max-width: 850px;
+
+    margin: auto;
+}
+
+
+.hero-badge {
+
+    display: inline-block;
+
+    padding: 8px 16px;
+
+    margin-bottom: 22px;
+
+    border-radius: 50px;
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+
+    font-size: 14px;
+
+    font-weight: 600;
 }
 
 
 .hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
+
+    font-size: 52px;
+
+    line-height: 1.2;
+
     color: #111827;
+
+    margin-bottom: 22px;
 }
 
 
 .hero h1 span {
+
     color: #2563eb;
 }
 
 
 .hero p {
+
     max-width: 720px;
+
     margin: auto;
 
     color: #6b7280;
-    font-size: 17px;
+
+    font-size: 18px;
+
     line-height: 1.8;
 }
 
 
 /* ========================================
-   SECTION HEADINGS
+SECTION HEADINGS
 ======================================== */
 
 .section-heading {
+
     text-align: center;
+
     margin-bottom: 45px;
 }
 
 
-.section-heading h2 {
-    font-size: 32px;
-    color: #111827;
+.section-label {
+
+    display: inline-block;
+
     margin-bottom: 10px;
+
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.section-heading h2 {
+
+    font-size: 34px;
+
+    color: #111827;
+
+    margin-bottom: 12px;
 }
 
 
 .section-heading p {
-    color: #6b7280;
+
     max-width: 650px;
+
     margin: auto;
+
+    color: #6b7280;
+
+    font-size: 16px;
 }
 
 
 /* ========================================
-   OPTIONS SECTION
+OPTIONS SECTION
 ======================================== */
 
 .options-section {
+
     max-width: 1250px;
+
     margin: auto;
 
-    padding: 40px 25px 90px;
+    padding: 85px 25px;
 }
 
 
 .options-container {
+
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
@@ -126,21 +241,27 @@ header {
 
 
 /* ========================================
-   OPTION CARDS
+   OPTION CARD
 ======================================== */
 
 .option-card {
-    background-color: #ffffff;
+
+    background: #ffffff;
 
     padding: 38px 30px;
 
-    border-radius: 18px;
-
-    text-align: center;
+    border-radius: 20px;
 
     border: 1px solid #e5e7eb;
 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.05);
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
 
     transition:
         transform 0.3s ease,
@@ -149,54 +270,108 @@ header {
 
 
 .option-card:hover {
+
     transform: translateY(-8px);
 
     box-shadow:
-        0 18px 35px rgba(37, 99, 235, 0.12);
+        0 18px 40px rgba(37, 99, 235, 0.12);
 }
 
 
 .option-icon {
-    font-size: 45px;
-    margin-bottom: 18px;
+
+    width: 75px;
+
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #eff6ff;
+
+    font-size: 38px;
 }
 
 
 .option-card h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
+
+    font-size: 23px;
 
     color: #111827;
+
+    margin-bottom: 15px;
 }
 
 
 .option-card p {
+
     color: #6b7280;
 
-    line-height: 1.7;
+    margin-bottom: 28px;
 
-    margin-bottom: 25px;
-
-    min-height: 135px;
+    flex-grow: 1;
 }
 
 
 /* ========================================
-   BUTTONS
+BUTTONS
 ======================================== */
 
 .option-btn {
+
     width: 100%;
 
     padding: 14px 20px;
 
     border: none;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    background-color: #2563eb;
+    background: #2563eb;
 
-    color: #ffffff;
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.option-btn:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+}
+
+
+.action-btn {
+
+    padding: 14px 32px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: white;
 
     font-size: 16px;
 
@@ -204,396 +379,125 @@ header {
 
     cursor: pointer;
 
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
-}
-
-
-.option-btn:hover {
-    background-color: #1d4ed8;
-
-    transform: scale(1.02);
-}
-
-
-.option-btn:active {
-    transform: scale(0.98);
-}
-
-
-/* ========================================
-   SKILLSYNC JOURNEY
-======================================== */
-
-.journey-section {
-    background-color: #ffffff;
-
-    padding: 80px 8%;
-}
-
-
-.journey-container {
-    max-width: 1300px;
-
-    margin: auto;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 12px;
-
-    flex-wrap: wrap;
-}
-
-
-/* ========================================
-   JOURNEY STEPS
-======================================== */
-
-.journey-step {
-    background-color: #f6f8fc;
-
-    padding: 25px 18px;
-
-    width: 190px;
-
-    min-height: 210px;
-
-    border-radius: 14px;
-
-    text-align: center;
-
-    border: 1px solid #e5e7eb;
-
     transition: 0.3s;
 }
 
 
-.journey-step:hover {
-    transform: translateY(-5px);
+.action-btn:hover {
+
+    transform: translateY(-2px);
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-
-.journey-step span {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: 42px;
-
-    height: 42px;
-
-    margin: 0 auto 15px;
-
-    border-radius: 50%;
-
-    background-color: #2563eb;
-
-    color: white;
-
-    font-weight: bold;
-}
-
-
-.journey-step h3 {
-    margin-bottom: 10px;
-
-    color: #111827;
-}
-
-
-.journey-step p {
-    font-size: 14px;
-
-    color: #6b7280;
-
-    line-height: 1.6;
+        0 10px 25px rgba(37, 99, 235, 0.25);
 }
 
 
 /* ========================================
-   JOURNEY ARROW
+INTERACTIVE SECTIONS
 ======================================== */
-
-.journey-arrow {
-    font-size: 28px;
-
-    color: #2563eb;
-
-    font-weight: bold;
-}
-
-
-/* ========================================
-   WHY SKILLSYNC SECTION
-======================================== */
-
-.why-section {
-    padding: 85px 8%;
-
-    background-color: #f6f8fc;
-}
-
-
-/* ========================================
-   FEATURES
-======================================== */
-
-.features {
-    max-width: 1200px;
-
-    margin: auto;
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 22px;
-}
-
-
-.feature {
-    background-color: white;
-
-    padding: 28px 22px;
-
-    border-radius: 14px;
-
-    border: 1px solid #e5e7eb;
-
-    transition: 0.3s;
-}
-
-
-.feature:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.07);
-}
-
-
-.feature h3 {
-    margin-bottom: 12px;
-
-    font-size: 19px;
-
-    color: #2563eb;
-}
-
-
-.feature p {
-    color: #6b7280;
-
-    font-size: 14px;
-
-    line-height: 1.7;
-}
-
-
-/* ========================================
-   FOOTER
-======================================== */
-
-footer {
-    background-color: #111827;
-
-    color: white;
-
-    text-align: center;
-
-    padding: 40px 20px;
-}
-
-
-footer h3 {
-    font-size: 24px;
-
-    margin-bottom: 8px;
-}
-
-
-footer p {
-    color: #d1d5db;
-}
-
-
-.footer-text {
-    margin-top: 15px;
-
-    font-size: 13px;
-
-    color: #9ca3af;
-}
-
-
-/* ========================================
-   TABLET RESPONSIVE
-======================================== */
-
-@media (max-width: 1000px) {
-
-    .options-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    .features {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    .journey-arrow {
-        display: none;
-    }
-
-}
-
-
-/* ========================================
-   MOBILE RESPONSIVE
-======================================== */
-
-@media (max-width: 700px) {
-
-    header {
-        flex-direction: column;
-
-        gap: 8px;
-
-        text-align: center;
-    }
-
-
-    .hero {
-        padding: 60px 20px 40px;
-    }
-
-
-    .hero h1 {
-        font-size: 36px;
-    }
-
-
-    .hero p {
-        font-size: 16px;
-    }
-
-
-    .options-container {
-        grid-template-columns: 1fr;
-    }
-
-
-    .features {
-        grid-template-columns: 1fr;
-    }
-
-
-    .journey-container {
-        flex-direction: column;
-    }
-
-
-    .journey-step {
-        width: 100%;
-
-        max-width: 350px;
-
-        min-height: auto;
-    }
-
-
-    .journey-arrow {
-        display: block;
-
-        transform: rotate(90deg);
-    }
-
-
-    .section-heading h2 {
-        font-size: 27px;
-    }
-
-}
-
-/* ==========================================
-   INTERACTIVE SECTIONS
-========================================== */
 
 .interactive-section {
 
-    width: 85%;
+    width: 90%;
 
-    max-width: 1000px;
+    max-width: 950px;
 
-    margin: 80px auto;
+    margin: 0 auto 80px;
 
-    padding: 45px;
+    padding: 55px;
 
     background: white;
 
-    border-radius: 20px;
+    border-radius: 22px;
+
+    border: 1px solid #e5e7eb;
 
     box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.08);
-
-    text-align: center;
-
+        0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
 
-/* Hidden sections */
+.interactive-content {
+
+    max-width: 800px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+
+/* HIDE SECTIONS */
 
 .hidden {
 
     display: none;
-
 }
 
 
-/* Section Heading */
+/* INTERACTIVE ICON */
+
+.interactive-icon {
+
+    font-size: 42px;
+
+    margin-bottom: 15px;
+}
+
+
+/* HEADINGS */
 
 .interactive-section h2 {
 
-    font-size: 36px;
+    font-size: 34px;
 
-    color: #1f2937;
+    color: #111827;
 
-    margin-bottom: 15px;
-
+    margin-bottom: 12px;
 }
 
 
-.interactive-section > p {
-
-    font-size: 17px;
+.interactive-section > .interactive-content > p {
 
     color: #6b7280;
 
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 
+    font-size: 16px;
 }
 
 
-/* ==========================================
-   TEXTAREA
-========================================== */
+/* ========================================
+FORM
+======================================== */
+
+.form-group {
+
+    text-align: left;
+
+    margin-bottom: 25px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+/* TEXTAREA */
 
 textarea {
 
     width: 100%;
 
-    min-height: 120px;
+    min-height: 130px;
 
     padding: 15px;
 
@@ -601,16 +505,11 @@ textarea {
 
     border: 1px solid #d1d5db;
 
-    font-size: 16px;
-
-    resize: vertical;
-
-    box-sizing: border-box;
-
-    margin-bottom: 20px;
-
     font-family: Arial, Helvetica, sans-serif;
 
+    font-size: 15px;
+
+    resize: vertical;
 }
 
 
@@ -622,13 +521,10 @@ textarea:focus {
 
     box-shadow:
         0 0 0 3px rgba(37, 99, 235, 0.12);
-
 }
 
 
-/* ==========================================
-   SELECT
-========================================== */
+/* SELECT */
 
 select {
 
@@ -636,16 +532,13 @@ select {
 
     padding: 15px;
 
-    font-size: 16px;
-
     border-radius: 10px;
 
     border: 1px solid #d1d5db;
 
-    margin-bottom: 20px;
-
     background: white;
 
+    font-size: 15px;
 }
 
 
@@ -654,35 +547,10 @@ select:focus {
     outline: none;
 
     border-color: #2563eb;
-
 }
 
 
-/* ==========================================
-   FILE INPUT
-========================================== */
-
-.form-group {
-
-    text-align: left;
-
-    margin-bottom: 25px;
-
-}
-
-
-.form-group label {
-
-    display: block;
-
-    font-weight: 600;
-
-    margin-bottom: 10px;
-
-    color: #374151;
-
-}
-
+/* FILE INPUT */
 
 input[type="file"] {
 
@@ -694,66 +562,21 @@ input[type="file"] {
 
     border-radius: 10px;
 
-    box-sizing: border-box;
-
     background: #f8fbff;
 
     cursor: pointer;
-
 }
 
 
-/* ==========================================
-   ACTION BUTTON
-========================================== */
-
-.action-btn {
-
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
-
-    color: white;
-
-    border: none;
-
-    padding: 15px 35px;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-
-}
-
-
-.action-btn:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 20px rgba(37, 99, 235, 0.3);
-
-}
-
-
-/* ==========================================
-   RESULT BOX
-========================================== */
+/* ========================================
+RESULT BOX
+======================================== */
 
 .result-box {
 
-    margin-top: 30px;
+    margin-top: 35px;
 
     text-align: left;
-
 }
 
 
@@ -763,6 +586,7 @@ input[type="file"] {
 
     margin-bottom: 20px;
 
+    font-size: 22px;
 }
 
 
@@ -777,46 +601,40 @@ input[type="file"] {
     border-left: 5px solid #2563eb;
 
     border-radius: 10px;
-
 }
 
 
 .result-item strong {
 
-    color: #1f2937;
-
+    color: #111827;
 }
 
 
 .result-item p {
 
-    color: #4b5563;
-
     margin-top: 8px;
 
+    color: #6b7280;
 }
 
 
-/* ==========================================
-   ERROR MESSAGE
-========================================== */
+/* ERROR */
 
 .error-message {
 
-    color: #dc2626;
+    color: #b91c1c;
 
     background: #fef2f2;
 
     padding: 15px;
 
-    border-radius: 8px;
-
+    border-radius: 10px;
 }
 
 
-/* ==========================================
-   LEARNING PATH
-========================================== */
+/* ========================================
+LEARNING PATH
+======================================== */
 
 .learning-path {
 
@@ -825,7 +643,6 @@ input[type="file"] {
     flex-direction: column;
 
     gap: 15px;
-
 }
 
 
@@ -835,7 +652,7 @@ input[type="file"] {
 
     align-items: center;
 
-    gap: 20px;
+    gap: 18px;
 
     padding: 18px;
 
@@ -844,15 +661,14 @@ input[type="file"] {
     border-radius: 12px;
 
     border: 1px solid #e5e7eb;
-
 }
 
 
 .learning-step span {
 
-    width: 40px;
+    min-width: 42px;
 
-    height: 40px;
+    height: 42px;
 
     display: flex;
 
@@ -867,7 +683,6 @@ input[type="file"] {
     color: white;
 
     font-weight: bold;
-
 }
 
 
@@ -875,32 +690,322 @@ input[type="file"] {
 
     margin: 0;
 
-    font-size: 16px;
-
     color: #374151;
+}
+
+
+/* ========================================
+JOURNEY
+======================================== */
+
+.journey-section {
+
+    padding: 85px 25px;
+
+    background: white;
+}
+
+
+.journey-container {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+}
+
+
+.journey-step {
+
+    padding: 28px 20px;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    background: #f6f8fc;
+
+    border: 1px solid #e5e7eb;
+
+    transition: 0.3s;
+}
+
+
+.journey-step:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.journey-step span {
+
+    width: 42px;
+
+    height: 42px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+
+.journey-step h3 {
+
+    margin-bottom: 10px;
+
+    color: #111827;
+}
+
+
+.journey-step p {
+
+    font-size: 14px;
+
+    color: #6b7280;
+}
+
+
+/* ========================================
+WHY SKILLSYNC
+======================================== */
+
+.why-section {
+
+    padding: 85px 25px;
+
+    background: #f6f8fc;
+}
+
+
+.features {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+
+.feature {
+
+    padding: 28px 22px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    border: 1px solid #e5e7eb;
+
+    transition: 0.3s;
+}
+
+
+.feature:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.07);
+}
+
+
+.feature h3 {
+
+    margin-bottom: 12px;
+
+    color: #2563eb;
+
+    font-size: 19px;
+}
+
+
+.feature p {
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+FOOTER
+======================================== */
+
+footer {
+
+    padding: 45px 20px;
+
+    background: #111827;
+
+    color: white;
+
+    text-align: center;
+}
+
+
+footer h3 {
+
+    font-size: 26px;
+
+    margin-bottom: 10px;
+}
+
+
+footer h3 span {
+
+    color: #60a5fa;
+}
+
+
+footer p {
+
+    color: #d1d5db;
+}
+
+
+.footer-text {
+
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    color: #9ca3af;
+}
+
+
+/* ========================================
+TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .options-container {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .features {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .journey-container {
+
+        grid-template-columns: repeat(3, 1fr);
+    }
 
 }
 
 
-/* ==========================================
-   MOBILE RESPONSIVE
-========================================== */
+/* ========================================
+MOBILE
+======================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
+
+    .header-container {
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        text-align: center;
+    }
+
+
+    .hero {
+
+        padding: 70px 20px 55px;
+    }
+
+
+    .hero h1 {
+
+        font-size: 38px;
+    }
+
+
+    .hero p {
+
+        font-size: 16px;
+    }
+
+
+    .options-container {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .features {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .journey-container {
+
+        grid-template-columns: 1fr;
+    }
+
 
     .interactive-section {
 
-        width: 90%;
+    width: 85%;
 
-        padding: 25px;
+    max-width: 1000px;
 
-    }
+    margin: 20px auto 80px;
+
+    padding: 45px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
 
 
     .interactive-section h2 {
 
         font-size: 28px;
+    }
 
+
+    .section-heading h2 {
+
+        font-size: 28px;
     }
 
 }

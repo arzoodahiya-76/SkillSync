@@ -1,113 +1,186 @@
+/* ==========================================
+   SHOW SELECTED SECTION
+========================================== */
+
 function showSection(sectionId) {
 
     // Hide all interactive sections
 
-    document.querySelectorAll(".interactive-section").forEach(section => {
+    document
+        .querySelectorAll(".interactive-section")
+        .forEach(section => {
 
-        section.classList.add("hidden");
+            section.classList.add("hidden");
 
-    });
+        });
+
+
+    // Find selected section
+
+    const selectedSection =
+        document.getElementById(sectionId);
+
+
+    // Safety check
+
+    if (!selectedSection) {
+
+        console.error(
+            "Section not found:",
+            sectionId
+        );
+
+        return;
+
+    }
 
 
     // Show selected section
-
-    const selectedSection = document.getElementById(sectionId);
 
     selectedSection.classList.remove("hidden");
 
 
     // Smooth scroll
 
-    selectedSection.scrollIntoView({
+    setTimeout(() => {
 
-        behavior: "smooth",
+        selectedSection.scrollIntoView({
 
-        block: "center"
+            behavior: "smooth",
 
-    });
+            block: "center"
+
+        });
+
+    }, 100);
 
 }
 
+
+
+/* ==========================================
+   ANALYZE SKILLS
+========================================== */
+
 async function analyzeSkills() {
 
-    const skillsInput = document
-        .getElementById("skills-input")
-        .value;
+    const skillsInput =
+        document
+            .getElementById("skills-input")
+            .value;
 
-    const resultBox = document
-        .getElementById("skills-result");
+
+    const resultBox =
+        document
+            .getElementById("skills-result");
 
 
     if (!skillsInput.trim()) {
 
         resultBox.innerHTML = `
+
             <p class="error-message">
+
                 Please enter at least one skill.
+
             </p>
+
         `;
 
         return;
+
     }
 
 
     resultBox.innerHTML = `
-        <p>Analyzing your skills...</p>
+
+        <div class="result-item">
+
+            <strong>
+                Analyzing your skills...
+            </strong>
+
+            <p>
+                Please wait while SkillSync evaluates your skills.
+            </p>
+
+        </div>
+
     `;
 
 
     try {
 
-        const response = await fetch("/analyze-skills", {
+        const response = await fetch(
+            "/analyze-skills",
+            {
 
-            method: "POST",
+                method: "POST",
 
-            headers: {
+                headers: {
 
-                "Content-Type": "application/json"
+                    "Content-Type": "application/json"
 
-            },
+                },
 
-            body: JSON.stringify({
+                body: JSON.stringify({
 
-                skills: skillsInput
+                    skills: skillsInput
 
-            })
+                })
 
-        });
+            }
+        );
 
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
 
         if (data.success) {
 
             resultBox.innerHTML = `
 
-                <h3>Your Skill Analysis</h3>
+                <h3>
+                    Your Skill Analysis
+                </h3>
+
 
                 <div class="result-item">
 
-                    <strong>Your Skills:</strong>
+                    <strong>
+                        Your Skills
+                    </strong>
 
-                    <p>${data.user_skills.join(", ")}</p>
+                    <p>
+                        ${data.user_skills.join(", ")}
+                    </p>
 
                 </div>
 
 
                 <div class="result-item">
 
-                    <strong>Recommended Skills:</strong>
+                    <strong>
+                        Recommended Skills
+                    </strong>
 
-                    <p>${data.recommended_skills.join(", ")}</p>
+                    <p>
+                        ${data.recommended_skills.join(", ")}
+                    </p>
 
                 </div>
 
 
                 <div class="result-item">
 
-                    <strong>Missing Skills:</strong>
+                    <strong>
+                        Missing Skills
+                    </strong>
 
-                    <p>${data.missing_skills.join(", ")}</p>
+                    <p>
+                        ${data.missing_skills.join(", ")}
+                    </p>
 
                 </div>
 
@@ -121,7 +194,7 @@ async function analyzeSkills() {
 
                 <p class="error-message">
 
-                    ${data.message}
+                    ${data.message || "Analysis failed."}
 
                 </p>
 
@@ -134,6 +207,7 @@ async function analyzeSkills() {
     catch (error) {
 
         console.error(error);
+
 
         resultBox.innerHTML = `
 
@@ -149,16 +223,28 @@ async function analyzeSkills() {
 
 }
 
+
+
+/* ==========================================
+   RESUME ANALYZER
+========================================== */
+
 function analyzeResume() {
 
-    const fileInput = document.getElementById("resume-file");
+    const fileInput =
+        document
+            .getElementById("resume-file");
 
-    const jobDescription = document
-        .getElementById("job-description")
-        .value;
 
-    const resultBox = document
-        .getElementById("resume-result");
+    const jobDescription =
+        document
+            .getElementById("job-description")
+            .value;
+
+
+    const resultBox =
+        document
+            .getElementById("resume-result");
 
 
     if (!fileInput.files.length) {
@@ -197,29 +283,42 @@ function analyzeResume() {
 
     resultBox.innerHTML = `
 
-        <h3>Resume Analysis</h3>
+        <h3>
+            Resume Analysis
+        </h3>
+
 
         <div class="result-item">
 
-            <strong>Resume:</strong>
+            <strong>
+                Uploaded Resume
+            </strong>
 
-            <p>${fileInput.files[0].name}</p>
+            <p>
+                ${fileInput.files[0].name}
+            </p>
 
         </div>
 
 
         <div class="result-item">
 
-            <strong>Job Description:</strong>
+            <strong>
+                Job Description
+            </strong>
 
-            <p>Job description successfully received.</p>
+            <p>
+                Job description successfully received.
+            </p>
 
         </div>
 
 
         <div class="result-item">
 
-            <strong>Next Step:</strong>
+            <strong>
+                Next Step
+            </strong>
 
             <p>
                 Resume analysis is ready to be connected
@@ -232,14 +331,23 @@ function analyzeResume() {
 
 }
 
+
+
+/* ==========================================
+   LEARNING PATH
+========================================== */
+
 function showLearningPath() {
 
-    const skill = document
-        .getElementById("learning-skill")
-        .value;
+    const skill =
+        document
+            .getElementById("learning-skill")
+            .value;
 
-    const resultBox = document
-        .getElementById("learning-result");
+
+    const resultBox =
+        document
+            .getElementById("learning-result");
 
 
     if (!skill) {
@@ -341,12 +449,15 @@ function showLearningPath() {
     };
 
 
-    const path = learningPaths[skill];
+    const path =
+        learningPaths[skill];
 
 
     let html = `
 
-        <h3>${skill} Learning Path</h3>
+        <h3>
+            ${skill} Learning Path
+        </h3>
 
         <div class="learning-path">
 
@@ -359,9 +470,13 @@ function showLearningPath() {
 
             <div class="learning-step">
 
-                <span>${index + 1}</span>
+                <span>
+                    ${index + 1}
+                </span>
 
-                <p>${step}</p>
+                <p>
+                    ${step}
+                </p>
 
             </div>
 
@@ -370,7 +485,11 @@ function showLearningPath() {
     });
 
 
-    html += `</div>`;
+    html += `
+
+        </div>
+
+    `;
 
 
     resultBox.innerHTML = html;
