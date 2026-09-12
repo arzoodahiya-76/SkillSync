@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkillSync | Smart Competency & Skill Analysis</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo">
+            Skill<span>Sync</span>
+        </div>
+
+        <div class="tagline">
+            Smart Competency & Skill Analysis
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- ================= HERO SECTION ================= -->
+
+        <section class="hero">
+
+            <h1>
+                Sync Your <span>Skills</span> With Your Future
+            </h1>
+
+            <p>
+                Discover your strengths, identify skill gaps, learn
+                industry-relevant skills, earn verified certificates,
+                and prepare yourself for the evolving job market.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= MAIN OPTIONS ================= -->
+
+        <section class="options-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    How Can SkillSync Help You?
+                </h2>
+
+                <p>
+                    Choose a pathway to understand, develop and validate
+                    your professional skills.
+                </p>
+
+            </div>
+
+
+
+            <div class="options-container">
+
+
+                <!-- ANALYZE SKILLS -->
+
+                <div class="option-card">
+
+                    <div class="option-icon">
+                        📊
+                    </div>
+
+                    <h2>
+                        Analyze Your Skills
+                    </h2>
+
+                    <p>
+                        Discover your current competencies, identify skill
+                        gaps, and understand the skills required for your
+                        career goals and industry demands.
+                    </p>
+
+                    <button
+                        class="option-btn"
+                        onclick="showSection('skills-section')"
+                    >
+                        Analyze Skills
+                    </button>
+
+                </div>
+
+
+
+                <!-- RESUME ANALYZER -->
+
+                <div class="option-card">
+
+                    <div class="option-icon">
+                        📄
+                    </div>
+
+                    <h2>
+                        Resume Analyzer
+                    </h2>
+
+                    <p>
+                        Upload your resume and provide a job description.
+                        SkillSync analyzes both to generate a job match
+                        score and identify missing skills.
+                    </p>
+
+                    <button
+                        class="option-btn"
+                        onclick="showSection('resume-section')"
+                    >
+                        Upload Resume
+                    </button>
+
+                </div>
+
+
+
+                <!-- LEARNING -->
+
+                <div class="option-card">
+
+                    <div class="option-icon">
+                        🎓
+                    </div>
+
+                    <h2>
+                        Learn & Get Certified
+                    </h2>
+
+                    <p>
+                        Learn industry-relevant skills through structured
+                        learning paths and validate your knowledge through
+                        assessments.
+                    </p>
+
+                    <button
+                        class="option-btn"
+                        onclick="showSection('learn-section')"
+                    >
+                        Start Learning
+                    </button>
+
+                </div>
+
+                <!-- AI MOCK INTERVIEW -->
+
+<div class="option-card">
+
+    <div class="option-icon">
+        🎙️
+    </div>
+
+    <h2>
+        AI Voice Mock Interview
+    </h2>
+
+    <p>
+        Practice realistic technical interviews through a live
+        voice conversation. Answer verbally, receive AI evaluation,
+        and get adaptive follow-up questions.
+    </p>
+
+    <button
+        class="option-btn"
+        onclick="showSection('interview-section')"
+    >
+        Start Mock Interview
+    </button>
+
+</div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ANALYZE SKILLS SECTION ================= -->
+
+        <section
+            id="skills-section"
+            class="interactive-section hidden"
+        >
+
+            <h2>
+                Analyze Your Skills
+            </h2>
+
+            <p>
+                Enter the skills you currently know, separated by commas.
+                SkillSync will identify your strengths and skill gaps.
+            </p>
+
+
+            <textarea
+                id="skills-input"
+                placeholder="Example: Python, HTML, CSS, JavaScript"
+            ></textarea>
+
+
+            <button
+                class="action-btn"
+                onclick="analyzeSkills()"
+            >
+                Analyze Now
+            </button>
+
+
+            <div
+                id="skills-result"
+                class="result-box"
+            ></div>
+
+        </section>
+
+
+
+        <!-- ================= RESUME ANALYZER SECTION ================= -->
+
+        <section
+            id="resume-section"
+            class="interactive-section hidden"
+        >
+
+            <h2>
+                Resume Analyzer
+            </h2>
+
+            <p>
+                Upload your resume and enter the job description
+                to analyze your job readiness.
+            </p>
+
+
+            <div class="form-group">
+
+                <label for="resume-file">
+                    Upload Resume
+                </label>
+
+                <input
+                    type="file"
+                    id="resume-file"
+                    accept=".txt,.pdf,.doc,.docx"
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label for="job-description">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="job-description"
+                    placeholder="Paste the job description here..."
+                ></textarea>
+
+            </div>
+
+
+
+            <button
+                class="action-btn"
+                onclick="analyzeResume()"
+            >
+                Analyze Resume
+            </button>
+
+
+
+            <div
+                id="resume-result"
+                class="result-box"
+            ></div>
+
+        </section>
+
+
+
+        <!-- ================= LEARNING SECTION ================= -->
+
+        <section
+            id="learn-section"
+            class="interactive-section hidden"
+        >
+
+            <h2>
+                Learn & Get Certified
+            </h2>
+
+            <p>
+                Choose a skill you want to learn and SkillSync will recommend
+                a structured learning path.
+            </p>
+
+
+            <select id="learning-skill">
+
+                <option value="">
+                    Select a Skill
+                </option>
+
+                <option value="Python">
+                    Python
+                </option>
+
+                <option value="Java">
+                    Java
+                </option>
+
+                <option value="C++">
+                    C++
+                </option>
+
+                <option value="JavaScript">
+                    JavaScript
+                </option>
+
+                <option value="Data Structures">
+                    Data Structures
+                </option>
+
+                <option value="Machine Learning">
+                    Machine Learning
+                </option>
+
+                <option value="Web Development">
+                    Web Development
+                </option>
+
+            </select>
+
+
+
+            <button
+                class="action-btn"
+                onclick="showLearningPath()"
+            >
+                Get Learning Path
+            </button>
+
+
+
+            <div
+                id="learning-result"
+                class="result-box"
+            ></div>
+
+        </section>
+
+        <!-- ================= AI VOICE MOCK INTERVIEW ================= -->
+
+<section
+    id="interview-section"
+    class="interactive-section hidden"
+>
+
+    <h2>
+        🎙️ AI Voice Mock Interview
+    </h2>
+
+    <p>
+        Have a real voice-based technical interview with SkillSync.
+        The AI adapts the difficulty based on your responses.
+    </p>
+
+    <!-- INTERVIEW SETUP -->
+
+    <div id="interview-setup">
+
+        <div class="form-group">
+
+            <label for="interview-role">
+                Target Role
+            </label>
+
+            <input
+                type="text"
+                id="interview-role"
+                placeholder="Example: AI/ML Intern"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="interview-skills">
+                Skills
+            </label>
+
+            <input
+                type="text"
+                id="interview-skills"
+                placeholder="Example: Python, Machine Learning, SQL"
+            >
+
+        </div>
+
+
+        <button
+            class="action-btn"
+            onclick="startMockInterview()"
+        >
+            🎙️ Start Interview
+        </button>
+
+    </div>
+
+
+    <!-- ACTIVE INTERVIEW -->
+
+    <div
+        id="interview-active"
+        class="hidden"
+    >
+
+        <div class="interview-status">
+
+            <span id="interview-status-indicator">
+                ● Ready
+            </span>
+
+            <span id="interview-question-count">
+                Question 1
+            </span>
+
+        </div>
+
+
+        <div class="interviewer-card">
+
+            <div class="interviewer-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Interviewer
+            </h3>
+
+            <p id="interview-question">
+                Your interview question will appear here.
+            </p>
+
+        </div>
+
+
+        <!-- VOICE CONTROLS -->
+
+        <div class="voice-controls">
+
+            <button
+                id="start-speaking-btn"
+                class="action-btn"
+                onclick="startListening()"
+            >
+                🎤 Start Speaking
+            </button>
+
+
+            <button
+                id="stop-speaking-btn"
+                class="action-btn hidden"
+                onclick="stopListening()"
+            >
+                ⏹ Stop Speaking
+            </button>
+
+        </div>
+
+
+        <!-- LIVE TRANSCRIPT -->
+
+        <div class="transcript-card">
+
+            <h3>
+                Your Response
+            </h3>
+
+            <p
+                id="live-transcript"
+                class="transcript"
+            >
+                Your spoken answer will appear here...
+            </p>
+
+        </div>
+
+
+        <button
+            id="submit-answer-btn"
+            class="action-btn"
+            onclick="submitInterviewAnswer()"
+            disabled
+        >
+            Submit Answer
+        </button>
+
+
+        <!-- AI EVALUATION -->
+
+        <div
+            id="interview-evaluation"
+            class="result-box"
+        ></div>
+
+
+        <!-- END INTERVIEW -->
+
+        <button
+            id="end-interview-btn"
+            class="option-btn"
+            onclick="endMockInterview()"
+        >
+            End Interview
+        </button>
+
+    </div>
+
+
+    <!-- INTERVIEW COMPLETE -->
+
+    <div
+        id="interview-complete"
+        class="hidden"
+    >
+
+        <h2>
+            🎉 Interview Complete
+        </h2>
+
+
+        <div
+            id="final-interview-result"
+            class="result-box"
+        ></div>
+
+
+        <button
+            class="option-btn"
+            onclick="resetMockInterview()"
+        >
+            Start Another Interview
+        </button>
+
+    </div>
+
+</section>
+
+
+
+        <!-- ================= PLATFORM FLOW ================= -->
+
+        <section class="journey-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Your SkillSync Journey
+                </h2>
+
+                <p>
+                    One platform to guide you from skill assessment to
+                    verified career readiness.
+                </p>
+
+            </div>
+
+
+
+            <div class="journey-container">
+
+
+                <div class="journey-step">
+
+                    <span>1</span>
+
+                    <h3>
+                        Assess
+                    </h3>
+
+                    <p>
+                        Analyze your current skills and competencies.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-arrow">
+                    →
+                </div>
+
+
+
+                <div class="journey-step">
+
+                    <span>2</span>
+
+                    <h3>
+                        Identify Gaps
+                    </h3>
+
+                    <p>
+                        Discover skills required by your desired industry.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-arrow">
+                    →
+                </div>
+
+
+
+                <div class="journey-step">
+
+                    <span>3</span>
+
+                    <h3>
+                        Learn
+                    </h3>
+
+                    <p>
+                        Follow structured and relevant learning paths.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-arrow">
+                    →
+                </div>
+
+
+
+                <div class="journey-step">
+
+                    <span>4</span>
+
+                    <h3>
+                        Get Certified
+                    </h3>
+
+                    <p>
+                        Take assessments and validate your skills.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-arrow">
+                    →
+                </div>
+
+
+
+                <div class="journey-step">
+
+                    <span>5</span>
+
+                    <h3>
+                        Get Job Ready
+                    </h3>
+
+                    <p>
+                        Match your skills with job requirements.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= WHY SKILLSYNC ================= -->
+
+        <section class="why-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Why SkillSync?
+                </h2>
+
+                <p>
+                    SkillSync bridges the gap between what individuals learn
+                    and what industries actually require.
+                </p>
+
+            </div>
+
+
+
+            <div class="features">
+
+
+                <div class="feature">
+
+                    <h3>
+                        🎯 Personalized
+                    </h3>
+
+                    <p>
+                        Recommendations based on your individual skills,
+                        goals and career interests.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature">
+
+                    <h3>
+                        📈 Industry Aligned
+                    </h3>
+
+                    <p>
+                        Skills and learning paths aligned with evolving
+                        industry requirements.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature">
+
+                    <h3>
+                        🔒 Verified Learning
+                    </h3>
+
+                    <p>
+                        Assessments ensure that certificates represent
+                        genuine competency.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature">
+
+                    <h3>
+                        💼 Job Ready
+                    </h3>
+
+                    <p>
+                        Resume and job analysis helps users understand
+                        their readiness for specific roles.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>
+            Skill<span>Sync</span>
+        </h3>
+
+        <p>
+            Bridging Skills with Industry Opportunities
+        </p>
+
+        <p class="footer-text">
+            ©️ 2026 SkillSync. Smart Skill Development for the Future.
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script
+        src="{{ url_for('static', filename='js/main.js') }}"
+    ></script>
+
+
+</body>
+
+</html>
